@@ -1,9 +1,10 @@
 import React from 'react'
 import './AddThings.css'
 
+
 const AddThings = (props) => {
     return (
-        <button className="button add-thing">Add Thing</button>
+        <button className="AddThings button add-thing" onClick={props.add}>Add Thing</button>
     )
 }
 
