@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './Header'
 import ThingList from './ThingList'
+import AddThings from './AddThings'
 
 class App extends Component {
   state = {
@@ -16,6 +17,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        <AddThings />
         <ThingList things={this.state.things} />
       </div>
     );
