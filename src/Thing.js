@@ -15,8 +15,15 @@ class Thing extends Component  {
     saveThing(thing)
   }
 
-render() {
-  const { thing, saveThing, removeThing } = this.props
+  blurOnEnter = (ev) => {
+    if(ev.key === 'Enter') {
+      ev.preventDefault()
+      ev.target.blur()
+    }
+  }
+
+  render() {
+    const { thing, saveThing, removeThing } = this.props
 
   return (
     <li className="Thing">
@@ -26,6 +33,7 @@ render() {
           className="name"
           html={thing.name}
           onChange={this.updateName}
+          onKeyPress={this.blurOnEnter}
           ref={input => this.nameInput = input}
         />
         <DeleteButton thing={thing} remove={removeThing} />
