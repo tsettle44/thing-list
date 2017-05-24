@@ -6,7 +6,7 @@ const Thing = ({ thing }) => {
     <li className="Thing">
       <input type="checkbox" value="on" />
       <div className="details">
-        <div className="name" contentEditable='true'>
+        <div className="name" contentEditable='true' data-text='Place Text Here'>
           {thing.name}
         </div>
         <span className="actions">

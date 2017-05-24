@@ -26,11 +26,11 @@ class App extends Component {
     const thing = {
       things: {
         id: thingId,
-        name: this.ThingList
+        name: this.state.things[thingId]
       }
     }
 
-    console.log(this.ThingList)
+    console.log(this.state.things[thingId])
 
     state.things[thingId] = thing.things
     this.setState(state, () => console.log(this.state))

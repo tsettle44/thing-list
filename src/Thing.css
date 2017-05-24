@@ -70,3 +70,13 @@ input[type="checkbox"] {
 .actions button.remove:hover {
   color: #AD343E;
 }
+
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text);
+    opacity: 0.2;
+}
+
+.name:hover{
+    border: 1px solid #00b4ff;
+    border-radius: 5px;
+}
