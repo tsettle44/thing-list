@@ -5,6 +5,7 @@ import './Thing.css'
 
 
 class Thing extends Component  {
+
   componentDidMount() {
     if(!this.nameInput.htmlEl.textContent) {
       this.nameInput.htmlEl.focus()
@@ -24,12 +25,25 @@ class Thing extends Component  {
     }
   }
 
+  checked = (ev) => {
+    const { thing, checked, notChecked } = this.props
+    if(ev.currentTarget.checked === true) {
+      checked(thing)
+    } else {
+      notChecked(thing)
+    }
+  }
+
+
   render() {
-    const { thing, saveThing, removeThing } = this.props
+    const { thing, saveThing, removeThing, checked, state } = this.props
 
   return (
     <li className="Thing">
-      <input type="checkbox" value="on" />
+      <input type="checkbox" value="on" 
+          onClick={this.checked}
+          ref={input => this.checkInput = input}
+          checked={thing.completed}/>
       <div className="details">
         <ContentEditable
           className="name"

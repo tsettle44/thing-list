@@ -21,10 +21,25 @@ class App extends Component {
     things: {}
   }
 
+  checked = (thing) => {
+    const things = {...this.state.things}
+    things[thing.id].completed = true
+
+    this.setState({ things })
+  }
+
+  notChecked = (thing) => {
+    const things = {...this.state.things}
+    things[thing.id].completed = false
+
+    this.setState({ things })
+  }
+
   thing() {
     return {
       id: `thing-${Date.now()}`,
       name: '',
+      completed: '',
     }
   }
 
@@ -51,6 +66,9 @@ class App extends Component {
     const actions = {
       saveThing: this.saveThing,
       removeThing: this.removeThing,
+      checked: this.checked,
+      notChecked: this.notChecked,
+      state: this.state
     }
 
     return (
