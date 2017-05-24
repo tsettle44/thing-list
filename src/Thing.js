@@ -5,10 +5,14 @@ import './Thing.css'
 
 
 class Thing extends Component  {
-    updateName = (ev) => {
-      const { thing, saveThing } = this.props
-      thing.name = ev.target.value
-      saveThing(thing)
+  componentDidMount() {
+    this.nameInput.htmlEl.focus()
+  }
+
+  updateName = (ev) => {
+    const { thing, saveThing } = this.props
+    thing.name = ev.target.value
+    saveThing(thing)
   }
 
 render() {
@@ -22,6 +26,7 @@ render() {
           className="name"
           html={thing.name}
           onChange={this.updateName}
+          ref={input => this.nameInput = input}
         />
         <DeleteButton thing={thing} remove={removeThing} />
       </div>
