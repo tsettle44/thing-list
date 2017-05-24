@@ -43,7 +43,7 @@ class App extends Component {
 
   removeThing = (thing) => {
     const things = {...this.state.things}
-    delete things[thing.id]
+    things[thing.id] = null
     this.setState({ things })
   }
 
