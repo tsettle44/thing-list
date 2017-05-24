@@ -2,47 +2,53 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './Header'
 import ThingList from './ThingList'
-import AddThings from './AddThings'
+import AddThingButton from './AddThingButton'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    let id = 4
-  }
-
   state = {
-    things: {
-      'thing-1': { id: 'thing-1', name: 'Milk' },
-      'thing-2': { id: 'thing-2', name: 'Bread' },
-      'thing-3': { id: 'thing-3', name: 'Bibb lettuce' },
+    things: {}
+  }
+
+  thing() {
+    return {
+      id: `thing-${Date.now()}`,
+      name: '',
     }
   }
 
-  addItem = (add) => {
-    const state = {...this.state}
-    let things = Object.keys(state.things).length
-    let id = things + 1
-    const thingId = 'thing-' + id
-    const thing = {
-      things: {
-        id: thingId,
-        name: this.state.things[thingId]
-      }
-    }
+  addThing = () => {
+    const things = {...this.state.things}
+    const thing = this.thing()
+    things[thing.id] = thing
+    this.setState({ things })
+  }
 
-    console.log(this.state.things[thingId])
+  saveThing = (thing) => {
+    const things = {...this.state.things}
+    things[thing.id] = thing
+    this.setState({ things })
+  }
 
-    state.things[thingId] = thing.things
-    this.setState(state, () => console.log(this.state))
-
+  removeThing = (thing) => {
+    const things = {...this.state.things}
+    delete things[thing.id]
+    this.setState({ things })
   }
 
   render() {
+    const actions = {
+      saveThing: this.saveThing,
+      removeThing: this.removeThing,
+    }
+
     return (
       <div className="App">
         <Header />
-        <AddThings add={this.addItem}/>
-        <ThingList things={this.state.things} />
+        <AddThingButton addThing={this.addThing} />
+        <ThingList
+          things={this.state.things}
+          {...actions}
+        />
       </div>
     );
   }
