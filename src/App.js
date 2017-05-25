@@ -77,7 +77,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <SignOut />
+        <Login />
         <AddThingButton addThing={this.addThing} />
         <ThingList
           things={this.state.things}
