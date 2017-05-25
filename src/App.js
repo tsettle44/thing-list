@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './Header'
+import Login from './Login'
 import ThingList from './ThingList'
 import AddThingButton from './AddThingButton'
 import base from './base'
@@ -40,6 +41,7 @@ class App extends Component {
       id: `thing-${Date.now()}`,
       name: '',
       completed: false,
+      due: '',
     }
   }
 
@@ -74,6 +76,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        <Login />
         <AddThingButton addThing={this.addThing} />
         <ThingList
           things={this.state.things}

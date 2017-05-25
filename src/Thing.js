@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ContentEditable from 'react-contenteditable'
 import DeleteButton from './DeleteButton'
-import Datebtn from './Datebtn'
 import './Thing.css'
 
 
@@ -13,9 +12,10 @@ class Thing extends Component  {
     }
   }
 
-  updateName = (ev) => {
+  handleChanges = (ev) => {
     const { thing, saveThing } = this.props
-    thing.name = ev.target.value
+    const feild = ev.currentTarget.getAttribute('name')
+    thing[feild] = ev.target.value
     saveThing(thing)
   }
 
@@ -24,11 +24,6 @@ class Thing extends Component  {
       ev.preventDefault()
       ev.target.blur()
     }
-  }
-
-  date = (ev) => {
-    const date = ev.currentTarget
-    console.log(date)
   }
 
   checked = (ev) => {
@@ -53,12 +48,16 @@ class Thing extends Component  {
       <div className="details">
         <ContentEditable
           className="name"
+          name="name"
           html={thing.name}
-          onChange={this.updateName}
+          onChange={this.handleChanges}
           onKeyPress={this.blurOnEnter}
           ref={input => this.nameInput = input}
         />
-        <Datebtn onChange={this.date} />
+        <input type="date" 
+        onChange={this.handleChanges}
+        name="due"
+        defaultValue={thing.due} />
         <DeleteButton thing={thing} remove={removeThing} />
       </div>
     </li>
