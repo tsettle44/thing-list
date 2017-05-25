@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ContentEditable from 'react-contenteditable'
 import DeleteButton from './DeleteButton'
+import Datebtn from './Datebtn'
 import './Thing.css'
 
 
@@ -25,6 +26,11 @@ class Thing extends Component  {
     }
   }
 
+  date = (ev) => {
+    const date = ev.currentTarget
+    console.log(date)
+  }
+
   checked = (ev) => {
     const { thing, checked, notChecked } = this.props
     if(ev.currentTarget.checked === true) {
@@ -43,7 +49,7 @@ class Thing extends Component  {
       <input type="checkbox" value="on" 
           onClick={this.checked}
           ref={input => this.checkInput = input}
-          checked={thing.completed}/>
+          defaultChecked={thing.completed}/>
       <div className="details">
         <ContentEditable
           className="name"
@@ -52,6 +58,7 @@ class Thing extends Component  {
           onKeyPress={this.blurOnEnter}
           ref={input => this.nameInput = input}
         />
+        <Datebtn onChange={this.date} />
         <DeleteButton thing={thing} remove={removeThing} />
       </div>
     </li>
