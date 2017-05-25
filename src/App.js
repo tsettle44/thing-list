@@ -8,9 +8,23 @@ import AddThingButton from './AddThingButton'
 import base, { auth } from './base'
 
 class App extends Component {
+  state = {
+    things: {},
+    uid: null
+  }
 
   componentWillMount() {
-   this.ref = base.syncState(
+    auth.onAuthStateChanged(
+      (user) => {
+        if (user) {
+          this.offHandler({ user })
+        }
+      }
+    )
+  }
+
+  setUpThings() {
+    this.ref = base.syncState(
       'things', 
       {
         context: this,
@@ -19,8 +33,11 @@ class App extends Component {
     )
   }
 
-  state = {
-    things: {}
+  offHandler= (authData) => {
+    this.setState({ 
+      uid: authData.user.uid},
+      this.setUpThings()
+    )
   }
 
   checked = (thing) => {
@@ -66,28 +83,39 @@ class App extends Component {
   }
 
   signOut = () => {
-    auth.signOut()
+    auth
+    .signOut()
+    .then(() => {
+      this.setState({ uid: null })
+    })
   }
 
-  render() {
+  renderThings() {
     const actions = {
       saveThing: this.saveThing,
       removeThing: this.removeThing,
       checked: this.checked,
       notChecked: this.notChecked,
-      state: this.state
     }
-
-    return (
-      <div className="App">
-        <Header />
-        <Login />
-        <SignOut signOut={this.signOut} />
+    return(
+      <div>
+      <SignOut signOut={this.signOut} />
         <AddThingButton addThing={this.addThing} />
         <ThingList
           things={this.state.things}
           {...actions}
         />
+      </div>
+    )
+  }
+
+  render() {
+    
+
+    return (
+      <div className="App">
+        <Header />
+        { this.state.uid ? this.renderThings() : <Login offHandler={this.offHandler} /> }
       </div>
     );
   }

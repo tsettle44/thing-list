@@ -4,9 +4,11 @@ import { auth } from './base'
 import { githubProvider } from './base'
 import './Login.css'
 
-const Login = () => {
+const Login = ({ offHandler }) => {
     const authenticate = (provider) => {
-        auth.signInWithPopup(provider)
+        auth
+            .signInWithPopup(provider)
+            .then(offHandler)
     }
 
     return(
