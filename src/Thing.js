@@ -37,7 +37,7 @@ class Thing extends Component  {
 
 
   render() {
-    const { thing, saveThing, removeThing, checked, state } = this.props
+    const { thing, removeThing } = this.props
 
   return (
     <li className="Thing">
